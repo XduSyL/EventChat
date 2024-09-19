@@ -1,0 +1,41 @@
+  0%|                                                                                                       | 0/4360 [00:00<?, ?it/s]/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/torch/utils/checkpoint.py:429: UserWarning: torch.utils.checkpoint: please pass in use_reentrant=True or use_reentrant=False explicitly. The default value of use_reentrant will be updated to be False in the future. To maintain current behavior, pass use_reentrant=True. It is recommended that you use use_reentrant=False. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/torch/utils/checkpoint.py:61: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`...
+/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/deepspeed/runtime/zero/stage_1_and_2.py:1652: UserWarning: The torch.cuda.*DtypeTensor constructors are no longer recommended. It's best to use methods such as torch.tensor(data, dtype=*, device='cuda') to create tensors. (Triggered internally at ../torch/csrc/tensor/python_tensor.cpp:83.)
+  total_norm_cuda = get_accelerator().FloatTensor([float(total_norm)])
+  0%|                                                                                            | 1/4360 [00:18<22:34:46, 18.65s/it]
+
+  0%|                                                                                            | 2/4360 [00:35<21:34:08, 17.82s/it]
+
+  0%|                                                                                            | 3/4360 [00:53<21:20:14, 17.63s/it]
+
+  0%|                                                                                            | 4/4360 [01:10<21:16:07, 17.58s/it]
+
+  0%|                                                                                            | 5/4360 [01:28<21:15:25, 17.57s/it]
+
+  0%|▏                                                                                           | 6/4360 [01:45<21:15:40, 17.58s/it]
+{'loss': 5.2369, 'learning_rate': 4.5801526717557256e-05, 'epoch': 0.0}
+
+  0%|▏                                                                                           | 7/4360 [02:03<21:18:15, 17.62s/it]
+
+  0%|▏                                                                                           | 8/4360 [02:21<21:17:44, 17.62s/it]
+
+  0%|▏                                                                                           | 9/4360 [02:38<21:16:30, 17.60s/it]
+
+  0%|▏                                                                                          | 10/4360 [02:56<21:18:05, 17.63s/it]/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/torch/nn/modules/module.py:1879: UserWarning: Positional args are being deprecated, use kwargs instead. Refer to https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module.state_dict for details.
+  warnings.warn(
+/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/torch/utils/checkpoint.py:429: UserWarning: torch.utils.checkpoint: please pass in use_reentrant=True or use_reentrant=False explicitly. The default value of use_reentrant will be updated to be False in the future. To maintain current behavior, pass use_reentrant=True. It is recommended that you use use_reentrant=False. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/torch/utils/checkpoint.py:61: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+{'loss': 3.9316, 'learning_rate': 8.396946564885496e-05, 'epoch': 0.0}
+  0%|▏                                                                                    | 11/4360 [04:32<50:20:01, 41.67s/it]
+
+  0%|▏                                                                                    | 12/4360 [04:50<41:26:12, 34.31s/it]
+
+  0%|▎                                                                                    | 13/4360 [05:07<35:17:21, 29.23s/it]
+
+
+  0%|▎                                                                                    | 15/4360 [05:42<28:03:47, 23.25s/it]

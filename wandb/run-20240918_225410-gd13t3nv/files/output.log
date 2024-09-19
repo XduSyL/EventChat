@@ -1,0 +1,26 @@
+  0%|                                                                                                             | 0/193 [00:00<?, ?it/s]/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/torch/utils/checkpoint.py:429: UserWarning: torch.utils.checkpoint: please pass in use_reentrant=True or use_reentrant=False explicitly. The default value of use_reentrant will be updated to be False in the future. To maintain current behavior, pass use_reentrant=True. It is recommended that you use use_reentrant=False. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/torch/utils/checkpoint.py:61: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`...
+/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/deepspeed/runtime/zero/stage_1_and_2.py:1652: UserWarning: The torch.cuda.*DtypeTensor constructors are no longer recommended. It's best to use methods such as torch.tensor(data, dtype=*, device='cuda') to create tensors. (Triggered internally at ../torch/csrc/tensor/python_tensor.cpp:83.)
+  total_norm_cuda = get_accelerator().FloatTensor([float(total_norm)])
+  1%|▌                                                                                                  | 1/193 [00:20<1:04:27, 20.14s/it]
+{'loss': 2.6487, 'learning_rate': 0.00016666666666666666, 'epoch': 0.01}
+
+  1%|█                                                                                                  | 2/193 [00:38<1:01:36, 19.35s/it]
+
+  2%|█▌                                                                                                 | 3/193 [00:57<1:00:48, 19.20s/it]
+
+  2%|██                                                                                                   | 4/193 [01:16<59:33, 18.91s/it]
+
+  3%|██▌                                                                                                  | 5/193 [01:34<58:23, 18.63s/it]
+
+  3%|███▏                                                                                                 | 6/193 [01:53<58:28, 18.76s/it]
+
+  4%|███▋                                                                                                 | 7/193 [02:12<58:14, 18.79s/it]
+
+
+  5%|████▋                                                                                                | 9/193 [02:50<57:57, 18.90s/it]
+{'loss': 1.0467, 'learning_rate': 0.0009993650973826177, 'epoch': 0.05}
+

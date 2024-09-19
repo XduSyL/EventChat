@@ -1,0 +1,53 @@
+
+  0%|                                                                                                                   | 0/771 [00:00<?, ?it/s]Traceback (most recent call last):
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/home/user/.vscode-server/extensions/ms-python.debugpy-2024.10.0-linux-x64/bundled/libs/debugpy/adapter/../../debugpy/launcher/../../debugpy/__main__.py", line 39, in <module>
+    cli.main()
+  File "/home/user/.vscode-server/extensions/ms-python.debugpy-2024.10.0-linux-x64/bundled/libs/debugpy/adapter/../../debugpy/launcher/../../debugpy/../debugpy/server/cli.py", line 430, in main
+    run()
+  File "/home/user/.vscode-server/extensions/ms-python.debugpy-2024.10.0-linux-x64/bundled/libs/debugpy/adapter/../../debugpy/launcher/../../debugpy/../debugpy/server/cli.py", line 284, in run_file
+    runpy.run_path(target, run_name="__main__")
+  File "/home/user/.vscode-server/extensions/ms-python.debugpy-2024.10.0-linux-x64/bundled/libs/debugpy/_vendored/pydevd/_pydevd_bundle/pydevd_runpy.py", line 321, in run_path
+    return _run_module_code(code, init_globals, run_name,
+  File "/home/user/.vscode-server/extensions/ms-python.debugpy-2024.10.0-linux-x64/bundled/libs/debugpy/_vendored/pydevd/_pydevd_bundle/pydevd_runpy.py", line 135, in _run_module_code
+    _run_code(code, mod_globals, init_globals,
+  File "/home/user/.vscode-server/extensions/ms-python.debugpy-2024.10.0-linux-x64/bundled/libs/debugpy/_vendored/pydevd/_pydevd_bundle/pydevd_runpy.py", line 124, in _run_code
+    exec(code, run_globals)
+  File "/data/SyL/Event_RGB/deepspeed_train.py", line 142, in <module>
+    trainer.train()
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/trainer.py", line 1539, in train
+    return inner_training_loop(
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/trainer.py", line 1869, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs)
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/trainer.py", line 2772, in training_step
+    loss = self.compute_loss(model, inputs)
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/trainer.py", line 2795, in compute_loss
+    outputs = model(**inputs)
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/accelerate/utils/operations.py", line 581, in forward
+    return model_forward(*args, **kwargs)
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/accelerate/utils/operations.py", line 569, in __call__
+    return convert_to_fp32(self.model_forward(*args, **kwargs))
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/torch/amp/autocast_mode.py", line 16, in decorate_autocast
+    return func(*args, **kwargs)
+  File "/data/SyL/Event_RGB/model/EventChatModel.py", line 243, in forward
+    inputs_images = self.CLIPProcessor(images=images, return_tensors="pt").to(images.device)
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/image_processing_utils.py", line 552, in __call__
+    return self.preprocess(images, **kwargs)
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/models/clip/image_processing_clip.py", line 299, in preprocess
+    images = [
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/models/clip/image_processing_clip.py", line 300, in <listcomp>
+    self.resize(image=image, size=size, resample=resample, input_data_format=input_data_format)
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/models/clip/image_processing_clip.py", line 168, in resize
+    return resize(
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/image_transforms.py", line 326, in resize
+    do_rescale = _rescale_for_pil_conversion(image)
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/image_transforms.py", line 150, in _rescale_for_pil_conversion
+    raise ValueError(
+ValueError: The image to be converted to a PIL image contains values outside the range [0, 1], got [-1.7922625541687012, 2.1458969116210938] which cannot be converted to uint8.

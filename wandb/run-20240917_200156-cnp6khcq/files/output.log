@@ -1,0 +1,30 @@
+  0%|                                                                                                 | 0/4360 [00:00<?, ?it/s]/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/torch/utils/checkpoint.py:429: UserWarning: torch.utils.checkpoint: please pass in use_reentrant=True or use_reentrant=False explicitly. The default value of use_reentrant will be updated to be False in the future. To maintain current behavior, pass use_reentrant=True. It is recommended that you use use_reentrant=False. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/torch/utils/checkpoint.py:61: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`...
+{'loss': 8.5829, 'learning_rate': 7.633587786259541e-06, 'epoch': 0.0}
+/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/deepspeed/runtime/zero/stage_1_and_2.py:1652: UserWarning: The torch.cuda.*DtypeTensor constructors are no longer recommended. It's best to use methods such as torch.tensor(data, dtype=*, device='cuda') to create tensors. (Triggered internally at ../torch/csrc/tensor/python_tensor.cpp:83.)
+  total_norm_cuda = get_accelerator().FloatTensor([float(total_norm)])
+  0%|                                                                                      | 1/4360 [00:18<22:33:11, 18.63s/it]
+
+  0%|                                                                                      | 2/4360 [00:35<21:35:38, 17.84s/it]Traceback (most recent call last):
+  File "/data/SyL/Event_RGB/deepspeed_train.py", line 143, in <module>
+    trainer.train()
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/trainer.py", line 1539, in train
+    return inner_training_loop(
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/trainer.py", line 1929, in _inner_training_loop
+    self._maybe_log_save_evaluate(tr_loss, model, trial, epoch, ignore_keys_for_eval)
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/trainer.py", line 2302, in _maybe_log_save_evaluate
+    self._save_checkpoint(model, trial, metrics=metrics)
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/trainer.py", line 2378, in _save_checkpoint
+    self.save_model(staging_output_dir, _internal_call=True)
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/trainer.py", line 2873, in save_model
+    self._save(output_dir, state_dict=state_dict)
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/trainer.py", line 2958, in _save
+    self.model.save_pretrained(
+  File "/data/SyL/Event_RGB/model/EventChatModel.py", line 156, in save_pretrained
+    self.save_model()
+  File "/data/SyL/Event_RGB/model/EventChatModel.py", line 133, in save_model
+    output_dir = self.model_args.output_dir
+AttributeError: 'ModelArguments' object has no attribute 'output_dir'

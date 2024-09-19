@@ -1,0 +1,12 @@
+  0%|                                                                                                                                   | 0/25600 [00:00<?, ?it/s]Traceback (most recent call last):
+  File "/data/SyL/Event_RGB/deepspeed_train.py", line 229, in <module>
+    trainer.train()
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/trainer.py", line 1539, in train
+    return inner_training_loop(
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/trainer.py", line 1869, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs)
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/trainer.py", line 2765, in training_step
+    inputs = self._prepare_inputs(inputs)
+  File "/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/transformers/trainer.py", line 2719, in _prepare_inputs
+    raise ValueError(
+ValueError: The batch received was empty, your model won't be able to train on it. Double-check that your training dataset contains keys expected by the model: aps,dvs,video_id,Query,Answer,label_ids,label.

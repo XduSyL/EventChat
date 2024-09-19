@@ -1,0 +1,110 @@
+2024-09-16 19:52:43,149 INFO    StreamThr :1051912 [internal.py:wandb_internal():85] W&B internal server running at pid: 1051912, started at: 2024-09-16 19:52:43.145903
+2024-09-16 19:52:43,165 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status
+2024-09-16 19:52:43,171 INFO    WriterThread:1051912 [datastore.py:open_for_write():87] open: /data/SyL/Event_RGB/wandb/run-20240916_195243-8t2xt0em/run-8t2xt0em.wandb
+2024-09-16 19:52:43,174 DEBUG   SenderThread:1051912 [sender.py:send():391] send: header
+2024-09-16 19:52:43,175 DEBUG   SenderThread:1051912 [sender.py:send():391] send: run
+2024-09-16 19:52:44,098 INFO    SenderThread:1051912 [dir_watcher.py:__init__():211] watching files in: /data/SyL/Event_RGB/wandb/run-20240916_195243-8t2xt0em/files
+2024-09-16 19:52:44,098 INFO    SenderThread:1051912 [sender.py:_start_run_threads():1200] run started: 8t2xt0em with start time 1726487563.13923
+2024-09-16 19:52:44,121 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: run_start
+2024-09-16 19:52:44,142 DEBUG   HandlerThread:1051912 [system_info.py:__init__():26] System info init
+2024-09-16 19:52:44,142 DEBUG   HandlerThread:1051912 [system_info.py:__init__():41] System info init done
+2024-09-16 19:52:44,142 INFO    HandlerThread:1051912 [system_monitor.py:start():194] Starting system monitor
+2024-09-16 19:52:44,144 INFO    HandlerThread:1051912 [system_monitor.py:probe():214] Collecting system info
+2024-09-16 19:52:44,144 INFO    SystemMonitor:1051912 [system_monitor.py:_start():158] Starting system asset monitoring threads
+2024-09-16 19:52:44,149 INFO    SystemMonitor:1051912 [interfaces.py:start():188] Started cpu monitoring
+2024-09-16 19:52:44,155 INFO    SystemMonitor:1051912 [interfaces.py:start():188] Started disk monitoring
+2024-09-16 19:52:44,163 INFO    SystemMonitor:1051912 [interfaces.py:start():188] Started gpu monitoring
+2024-09-16 19:52:44,174 INFO    SystemMonitor:1051912 [interfaces.py:start():188] Started memory monitoring
+2024-09-16 19:52:44,182 INFO    SystemMonitor:1051912 [interfaces.py:start():188] Started network monitoring
+2024-09-16 19:52:44,222 DEBUG   HandlerThread:1051912 [system_info.py:probe():152] Probing system
+2024-09-16 19:52:44,224 DEBUG   HandlerThread:1051912 [gitlib.py:_init_repo():56] git repository is invalid
+2024-09-16 19:52:44,224 DEBUG   HandlerThread:1051912 [system_info.py:probe():200] Probing system done
+2024-09-16 19:52:44,224 DEBUG   HandlerThread:1051912 [system_monitor.py:probe():223] {'os': 'Linux-5.4.0-195-generic-x86_64-with-glibc2.31', 'python': '3.10.14', 'heartbeatAt': '2024-09-16T11:52:44.222412', 'startedAt': '2024-09-16T11:52:43.128974', 'docker': None, 'cuda': None, 'args': ('--model_name_or_path', '/data/SyL/model/vicuna-7b-v1.5', '--version', 'plain', '--data_path', '/data/SyL/LLaVA/data_process/merged_instruction.json', '--image_folder', '/data/SyL/LLaVA/custom_data/images', '--vision_tower', '/data/SyL/model/clip-vit-large-patch14-336', '--mm_projector_type', 'mlp2x_gelu', '--tune_mm_mlp_adapter', 'True', '--mm_vision_select_layer', '-2', '--mm_use_im_start_end', 'False', '--mm_use_im_patch_token', 'False', '--bf16', 'True', '--output_dir', './checkpoints/llava-v1.5-13b-pretrain', '--num_train_epochs', '1', '--per_device_train_batch_size', '8', '--per_device_eval_batch_size', '4', '--gradient_accumulation_steps', '4', '--evaluation_strategy', 'no', '--save_strategy', 'steps', '--save_steps', '24000', '--save_total_limit', '1', '--learning_rate', '1e-3', '--weight_decay', '0.', '--warmup_ratio', '0.03', '--lr_scheduler_type', 'cosine', '--logging_steps', '1', '--tf32', 'True', '--model_max_length', '2048', '--gradient_checkpointing', 'False', '--dataloader_num_workers', '4', '--lazy_preprocess', 'True', '--report_to', 'wandb'), 'state': 'running', 'program': '/data/SyL/LLaVA/llava/train/train_mem.py', 'codePathLocal': None, 'host': 'user-X12DPG-OA6', 'username': 'root', 'executable': '/home/user/anaconda3/envs/llava/bin/python', 'cpu_count': 32, 'cpu_count_logical': 64, 'cpu_freq': {'current': 1092.421984375, 'min': 800.0, 'max': 3500.0}, 'cpu_freq_per_core': [{'current': 3330.379, 'min': 800.0, 'max': 3500.0}, {'current': 864.787, 'min': 800.0, 'max': 3500.0}, {'current': 800.946, 'min': 800.0, 'max': 3500.0}, {'current': 886.123, 'min': 800.0, 'max': 3500.0}, {'current': 800.78, 'min': 800.0, 'max': 3500.0}, {'current': 800.0, 'min': 800.0, 'max': 3500.0}, {'current': 800.648, 'min': 800.0, 'max': 3500.0}, {'current': 801.02, 'min': 800.0, 'max': 3500.0}, {'current': 800.534, 'min': 800.0, 'max': 3500.0}, {'current': 800.124, 'min': 800.0, 'max': 3500.0}, {'current': 800.201, 'min': 800.0, 'max': 3500.0}, {'current': 800.536, 'min': 800.0, 'max': 3500.0}, {'current': 833.232, 'min': 800.0, 'max': 3500.0}, {'current': 799.325, 'min': 800.0, 'max': 3500.0}, {'current': 800.0, 'min': 800.0, 'max': 3500.0}, {'current': 829.931, 'min': 800.0, 'max': 3500.0}, {'current': 800.824, 'min': 800.0, 'max': 3500.0}, {'current': 830.087, 'min': 800.0, 'max': 3500.0}, {'current': 806.048, 'min': 800.0, 'max': 3500.0}, {'current': 894.874, 'min': 800.0, 'max': 3500.0}, {'current': 898.907, 'min': 800.0, 'max': 3500.0}, {'current': 801.071, 'min': 800.0, 'max': 3500.0}, {'current': 860.362, 'min': 800.0, 'max': 3500.0}, {'current': 879.413, 'min': 800.0, 'max': 3500.0}, {'current': 1359.618, 'min': 800.0, 'max': 3500.0}, {'current': 854.354, 'min': 800.0, 'max': 3500.0}, {'current': 1189.52, 'min': 800.0, 'max': 3500.0}, {'current': 988.757, 'min': 800.0, 'max': 3500.0}, {'current': 1155.703, 'min': 800.0, 'max': 3500.0}, {'current': 2110.319, 'min': 800.0, 'max': 3500.0}, {'current': 835.019, 'min': 800.0, 'max': 3500.0}, {'current': 800.508, 'min': 800.0, 'max': 3500.0}, {'current': 3331.267, 'min': 800.0, 'max': 3500.0}, {'current': 836.498, 'min': 800.0, 'max': 3500.0}, {'current': 800.424, 'min': 800.0, 'max': 3500.0}, {'current': 876.911, 'min': 800.0, 'max': 3500.0}, {'current': 801.505, 'min': 800.0, 'max': 3500.0}, {'current': 800.0, 'min': 800.0, 'max': 3500.0}, {'current': 801.207, 'min': 800.0, 'max': 3500.0}, {'current': 801.155, 'min': 800.0, 'max': 3500.0}, {'current': 801.595, 'min': 800.0, 'max': 3500.0}, {'current': 801.124, 'min': 800.0, 'max': 3500.0}, {'current': 800.491, 'min': 800.0, 'max': 3500.0}, {'current': 800.815, 'min': 800.0, 'max': 3500.0}, {'current': 900.809, 'min': 800.0, 'max': 3500.0}, {'current': 800.0, 'min': 800.0, 'max': 3500.0}, {'current': 800.0, 'min': 800.0, 'max': 3500.0}, {'current': 884.336, 'min': 800.0, 'max': 3500.0}, {'current': 800.567, 'min': 800.0, 'max': 3500.0}, {'current': 817.198, 'min': 800.0, 'max': 3500.0}, {'current': 841.862, 'min': 800.0, 'max': 3500.0}, {'current': 845.812, 'min': 800.0, 'max': 3500.0}, {'current': 906.113, 'min': 800.0, 'max': 3500.0}, {'current': 800.289, 'min': 800.0, 'max': 3500.0}, {'current': 884.606, 'min': 800.0, 'max': 3500.0}, {'current': 870.459, 'min': 800.0, 'max': 3500.0}, {'current': 1170.85, 'min': 800.0, 'max': 3500.0}, {'current': 858.946, 'min': 800.0, 'max': 3500.0}, {'current': 1075.465, 'min': 800.0, 'max': 3500.0}, {'current': 1073.684, 'min': 800.0, 'max': 3500.0}, {'current': 1161.953, 'min': 800.0, 'max': 3500.0}, {'current': 2450.868, 'min': 800.0, 'max': 3500.0}, {'current': 873.104, 'min': 800.0, 'max': 3500.0}, {'current': 801.226, 'min': 800.0, 'max': 3500.0}], 'disk': {'/': {'total': 438.05088806152344, 'used': 58.82049560546875}}, 'gpu': 'NVIDIA GeForce RTX 3090', 'gpu_count': 8, 'gpu_devices': [{'name': 'NVIDIA GeForce RTX 3090', 'memory_total': 25769803776}, {'name': 'NVIDIA GeForce RTX 3090', 'memory_total': 25769803776}, {'name': 'NVIDIA GeForce RTX 3090', 'memory_total': 25769803776}, {'name': 'NVIDIA GeForce RTX 3090', 'memory_total': 25769803776}, {'name': 'NVIDIA GeForce RTX 3090', 'memory_total': 25769803776}, {'name': 'NVIDIA GeForce RTX 3090', 'memory_total': 25769803776}, {'name': 'NVIDIA GeForce RTX 3090', 'memory_total': 25769803776}, {'name': 'NVIDIA GeForce RTX 3090', 'memory_total': 25769803776}], 'memory': {'total': 503.54224014282227}}
+2024-09-16 19:52:44,224 INFO    HandlerThread:1051912 [system_monitor.py:probe():224] Finished collecting system info
+2024-09-16 19:52:44,224 INFO    HandlerThread:1051912 [system_monitor.py:probe():227] Publishing system info
+2024-09-16 19:52:44,224 DEBUG   HandlerThread:1051912 [system_info.py:_save_conda():209] Saving list of conda packages installed into the current environment
+2024-09-16 19:52:45,110 INFO    Thread-17 :1051912 [dir_watcher.py:_on_file_created():271] file/dir created: /data/SyL/Event_RGB/wandb/run-20240916_195243-8t2xt0em/files/conda-environment.yaml
+2024-09-16 19:52:46,548 DEBUG   HandlerThread:1051912 [system_info.py:_save_conda():224] Saving conda packages done
+2024-09-16 19:52:46,564 INFO    HandlerThread:1051912 [system_monitor.py:probe():229] Finished publishing system info
+2024-09-16 19:52:46,568 DEBUG   SenderThread:1051912 [sender.py:send():391] send: files
+2024-09-16 19:52:46,569 INFO    SenderThread:1051912 [sender.py:_save_file():1466] saving file wandb-metadata.json with policy now
+2024-09-16 19:52:46,929 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: python_packages
+2024-09-16 19:52:46,930 DEBUG   SenderThread:1051912 [sender.py:send_request():418] send_request: python_packages
+2024-09-16 19:52:46,935 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: stop_status
+2024-09-16 19:52:46,936 DEBUG   SenderThread:1051912 [sender.py:send_request():418] send_request: stop_status
+2024-09-16 19:52:46,965 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: internal_messages
+2024-09-16 19:52:47,100 INFO    Thread-17 :1051912 [dir_watcher.py:_on_file_modified():288] file/dir modified: /data/SyL/Event_RGB/wandb/run-20240916_195243-8t2xt0em/files/conda-environment.yaml
+2024-09-16 19:52:47,102 INFO    Thread-17 :1051912 [dir_watcher.py:_on_file_created():271] file/dir created: /data/SyL/Event_RGB/wandb/run-20240916_195243-8t2xt0em/files/requirements.txt
+2024-09-16 19:52:47,103 INFO    Thread-17 :1051912 [dir_watcher.py:_on_file_created():271] file/dir created: /data/SyL/Event_RGB/wandb/run-20240916_195243-8t2xt0em/files/wandb-metadata.json
+2024-09-16 19:52:47,547 DEBUG   SenderThread:1051912 [sender.py:send():391] send: telemetry
+2024-09-16 19:52:47,548 DEBUG   SenderThread:1051912 [sender.py:send():391] send: config
+2024-09-16 19:52:47,550 DEBUG   SenderThread:1051912 [sender.py:send():391] send: telemetry
+2024-09-16 19:52:47,550 DEBUG   SenderThread:1051912 [sender.py:send():391] send: metric
+2024-09-16 19:52:47,551 DEBUG   SenderThread:1051912 [sender.py:send():391] send: telemetry
+2024-09-16 19:52:47,551 DEBUG   SenderThread:1051912 [sender.py:send():391] send: metric
+2024-09-16 19:52:47,551 WARNING SenderThread:1051912 [sender.py:send_metric():1417] Seen metric with glob (shouldn't happen)
+2024-09-16 19:52:47,551 DEBUG   SenderThread:1051912 [sender.py:send():391] send: telemetry
+2024-09-16 19:52:47,769 INFO    wandb-upload_0:1051912 [upload_job.py:push():130] Uploaded file /tmp/tmpkiaq4a9wwandb/5mgwuzus-wandb-metadata.json
+2024-09-16 19:52:48,101 INFO    Thread-17 :1051912 [dir_watcher.py:_on_file_created():271] file/dir created: /data/SyL/Event_RGB/wandb/run-20240916_195243-8t2xt0em/files/output.log
+2024-09-16 19:52:48,556 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:52:50,102 INFO    Thread-17 :1051912 [dir_watcher.py:_on_file_modified():288] file/dir modified: /data/SyL/Event_RGB/wandb/run-20240916_195243-8t2xt0em/files/output.log
+2024-09-16 19:52:53,938 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:52:56,949 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: internal_messages
+2024-09-16 19:52:58,938 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:53:01,934 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: stop_status
+2024-09-16 19:53:01,935 DEBUG   SenderThread:1051912 [sender.py:send_request():418] send_request: stop_status
+2024-09-16 19:53:04,239 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:53:06,949 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: internal_messages
+2024-09-16 19:53:09,939 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:53:14,954 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:53:16,124 INFO    Thread-17 :1051912 [dir_watcher.py:_on_file_modified():288] file/dir modified: /data/SyL/Event_RGB/wandb/run-20240916_195243-8t2xt0em/files/config.yaml
+2024-09-16 19:53:16,934 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: stop_status
+2024-09-16 19:53:16,936 DEBUG   SenderThread:1051912 [sender.py:send_request():418] send_request: stop_status
+2024-09-16 19:53:16,975 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: internal_messages
+2024-09-16 19:53:21,185 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:53:26,939 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:53:26,950 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: internal_messages
+2024-09-16 19:53:31,934 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: stop_status
+2024-09-16 19:53:31,936 DEBUG   SenderThread:1051912 [sender.py:send_request():418] send_request: stop_status
+2024-09-16 19:53:32,238 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:53:36,950 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: internal_messages
+2024-09-16 19:53:37,940 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:53:42,940 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:53:44,182 DEBUG   SystemMonitor:1051912 [system_monitor.py:_start():172] Starting system metrics aggregation loop
+2024-09-16 19:53:44,197 DEBUG   SenderThread:1051912 [sender.py:send():391] send: stats
+2024-09-16 19:53:46,935 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: stop_status
+2024-09-16 19:53:46,937 DEBUG   SenderThread:1051912 [sender.py:send_request():418] send_request: stop_status
+2024-09-16 19:53:46,979 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: internal_messages
+2024-09-16 19:53:48,266 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:53:53,940 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:53:56,951 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: internal_messages
+2024-09-16 19:53:58,940 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:54:01,935 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: stop_status
+2024-09-16 19:54:01,936 DEBUG   SenderThread:1051912 [sender.py:send_request():418] send_request: stop_status
+2024-09-16 19:54:04,254 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:54:06,950 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: internal_messages
+2024-09-16 19:54:09,941 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:54:14,205 DEBUG   SenderThread:1051912 [sender.py:send():391] send: stats
+2024-09-16 19:54:15,209 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:54:16,935 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: stop_status
+2024-09-16 19:54:16,936 DEBUG   SenderThread:1051912 [sender.py:send_request():418] send_request: stop_status
+2024-09-16 19:54:16,979 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: internal_messages
+2024-09-16 19:54:20,234 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:54:25,942 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:54:26,951 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: internal_messages
+2024-09-16 19:54:30,943 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:54:31,935 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: stop_status
+2024-09-16 19:54:31,936 DEBUG   SenderThread:1051912 [sender.py:send_request():418] send_request: stop_status
+2024-09-16 19:54:36,279 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:54:36,951 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: internal_messages
+2024-09-16 19:54:41,942 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:54:44,216 DEBUG   SenderThread:1051912 [sender.py:send():391] send: stats
+2024-09-16 19:54:46,935 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: stop_status
+2024-09-16 19:54:46,937 DEBUG   SenderThread:1051912 [sender.py:send_request():418] send_request: stop_status
+2024-09-16 19:54:46,979 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: internal_messages
+2024-09-16 19:54:47,223 DEBUG   HandlerThread:1051912 [handler.py:handle_request():158] handle_request: status_report
+2024-09-16 19:54:50,295 INFO    memory    :1051912 [interfaces.py:monitor():138] Process proc.memory.rssMB has exited.
+2024-09-16 19:54:50,296 DEBUG   SystemMonitor:1051912 [system_monitor.py:_start():179] Finished system metrics aggregation loop
+2024-09-16 19:54:50,296 DEBUG   SystemMonitor:1051912 [system_monitor.py:_start():183] Publishing last batch of metrics
+2024-09-16 19:54:50,309 DEBUG   SenderThread:1051912 [sender.py:send():391] send: stats
+2024-09-16 19:54:52,167 INFO    MainThread:1051912 [internal.py:handle_exit():75] Internal process exited

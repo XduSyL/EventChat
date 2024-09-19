@@ -1,0 +1,20 @@
+  0%|                                                                                                         | 0/772 [00:00<?, ?it/s]/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/torch/utils/checkpoint.py:429: UserWarning: torch.utils.checkpoint: please pass in use_reentrant=True or use_reentrant=False explicitly. The default value of use_reentrant will be updated to be False in the future. To maintain current behavior, pass use_reentrant=True. It is recommended that you use use_reentrant=False. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/torch/utils/checkpoint.py:61: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`...
+{'loss': 2.6337, 'learning_rate': 8.333333333333334e-06, 'epoch': 0.01}
+/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/deepspeed/runtime/zero/stage_1_and_2.py:1652: UserWarning: The torch.cuda.*DtypeTensor constructors are no longer recommended. It's best to use methods such as torch.tensor(data, dtype=*, device='cuda') to create tensors. (Triggered internally at ../torch/csrc/tensor/python_tensor.cpp:83.)
+  total_norm_cuda = get_accelerator().FloatTensor([float(total_norm)])
+  0%|                                                                                               | 1/772 [00:20<4:24:46, 20.61s/it]
+
+  0%|▏                                                                                              | 2/772 [00:40<4:17:25, 20.06s/it]
+LoRA 参数已保存到 /data/SyL/Event_RGB/checkpoints/llava-v1.5-7b-instruction/tmp-checkpoint-2/lora_parameters.pth
+视觉投影器参数已保存到 /data/SyL/Event_RGB/checkpoints/llava-v1.5-7b-instruction/tmp-checkpoint-2/visual_projecotor_parameters.pth
+  0%|▏                                                                                              | 2/772 [00:40<4:17:25, 20.06s/it]/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/torch/nn/modules/module.py:1879: UserWarning: Positional args are being deprecated, use kwargs instead. Refer to https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module.state_dict for details.
+  warnings.warn(
+/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/torch/utils/checkpoint.py:429: UserWarning: torch.utils.checkpoint: please pass in use_reentrant=True or use_reentrant=False explicitly. The default value of use_reentrant will be updated to be False in the future. To maintain current behavior, pass use_reentrant=True. It is recommended that you use use_reentrant=False. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+/home/user/anaconda3/envs/llava/lib/python3.10/site-packages/torch/utils/checkpoint.py:61: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+{'loss': 2.5838, 'learning_rate': 2.5e-05, 'epoch': 0.02}
