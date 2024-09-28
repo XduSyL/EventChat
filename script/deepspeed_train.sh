@@ -5,8 +5,8 @@ deepspeed --include=localhost:4,5,6,7 /data/SyL/Event_RGB/deepspeed_train.py \
     --useLorafinetune False \
     --model_name_or_path /data/SyL/model/vicuna-7b-v1.5 \
     --version plain \
-    --data_path  /data/SyL/LLaVA/data_process/merged_instruction.json \
-    --image_folder /data/SyL/LLaVA/custom_data/images \
+    --data_path  /data/SyL/LLaVA/data-pretrain/LLaVA-Pretrain/blip_laion_cc_sbu_558k.json \
+    --image_folder /data/SyL/LLaVA/data-pretrain/LLaVA-Pretrain/images \
     --vision_tower /data/SyL/model/clip-vit-large-patch14-336 \
     --mm_projector_type mlp2x_gelu \
     --tune_mm_mlp_adapter True \
@@ -14,15 +14,15 @@ deepspeed --include=localhost:4,5,6,7 /data/SyL/Event_RGB/deepspeed_train.py \
     --mm_use_im_start_end False \
     --mm_use_im_patch_token False \
     --bf16 True \
-    --output_dir /data/SyL/Event_RGB/checkpoints/llava-v1.5-7b-pretrain \
-    --output_mm_mlp_adapter /data/SyL/Event_RGB/checkpoints/llava-v1.5-7b-pretrain \
-    --num_train_epochs 4 \
+    --output_dir /data/SyL/Event_RGB/checkpoints/EventChat-v1.5-7b-pretrain \
+    --output_mm_mlp_adapter /data/SyL/Event_RGB/checkpoints/EventChat-v1.5-7b-pretrain \
+    --num_train_epochs 1 \
     --per_device_train_batch_size 8 \
     --per_device_eval_batch_size 4 \
     --gradient_accumulation_steps 4 \
     --evaluation_strategy "no" \
     --save_strategy "steps" \
-    --save_steps 200 \
+    --save_steps 500 \
     --save_total_limit 4 \
     --learning_rate 1e-3 \
     --weight_decay 0. \

@@ -16,6 +16,8 @@ from typing import Dict, Optional, Sequence, List
 import transformers
 from dataset.IeTdataset_transformers import make_supervised_data_module
 from model.EventChatModel import EventChatModel
+from dataset import conversation as conversation_lib
+import os
 
 
 local_rank = None
@@ -89,6 +91,52 @@ def compute_metrics(eval_pred):
     # 可根据需要计算额外的度量指标
     return {"accuracy": (predictions == labels).mean().item()}
 
+def maybe_zero_3(param, ignore_status=False, name=None):
+    from deepspeed import zero
+    from deepspeed.runtime.zero.partition_parameters import ZeroParamStatus
+    if hasattr(param, "ds_id"):
+        if param.ds_status == ZeroParamStatus.NOT_AVAILABLE:
+            if not ignore_status:
+                print(name, 'no ignore status')
+        with zero.GatheredParameters([param]):
+            param = param.data.detach().cpu().clone()
+    else:
+        param = param.detach().cpu().clone()
+    return param
+
+def get_mm_adapter_state_maybe_zero_3(named_params, keys_to_match):
+    to_return = {k: t for k, t in named_params if any(key_match in k for key_match in keys_to_match)}
+    to_return = {k: maybe_zero_3(v, ignore_status=True, name=k).cpu() for k, v in to_return.items()}
+    return to_return
+
+class EventChatTrainer(Trainer):
+    def _save_checkpoint(self, model, trial, metrics=None):
+        if getattr(self.args, 'tune_mm_mlp_adapter', False):
+            from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
+            checkpoint_folder = f"{PREFIX_CHECKPOINT_DIR}-{self.state.global_step}"
+
+            run_dir = self._get_output_dir(trial=trial)
+            output_dir = os.path.join(run_dir, checkpoint_folder)
+
+            # Only save Adapter
+            keys_to_match = ['visual_projector', 'vision_resampler']
+            if getattr(self.args, "use_im_start_end", False):
+                keys_to_match.extend(['embed_tokens', 'embed_in'])
+
+            weight_to_save = get_mm_adapter_state_maybe_zero_3(self.model.named_parameters(), keys_to_match)
+
+            if self.args.local_rank == 0 or self.args.local_rank == -1:
+                self.model.config.save_pretrained(output_dir)
+                torch.save(weight_to_save, os.path.join(output_dir, f'mm_projector.bin'))
+        else:
+            super(EventChatTrainer, self)._save_checkpoint(model, trial, metrics)
+
+    def _save(self, output_dir: Optional[str] = None, state_dict=None):
+        if getattr(self.args, 'tune_mm_mlp_adapter', False):
+            pass
+        else:
+            super(EventChatTrainer, self)._save(output_dir, state_dict)
+
 
 if __name__ == '__main__':
     
@@ -97,6 +145,13 @@ if __name__ == '__main__':
         (ModelArguments, DataArguments, TrainingArguments))
     model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
+    model = EventChatModel.from_pretrained(model_args.model_name_or_path,
+                                            cache_dir=training_args.cache_dir,
+                                            attn_implementation="flash_attention_2",
+                                            torch_dtype=(torch.bfloat16 if training_args.bf16 else None))
+
+    model.config.use_cache = False
+
     tokenizer = transformers.AutoTokenizer.from_pretrained(
     model_args.model_name_or_path,
     model_max_length=training_args.model_max_length,
@@ -104,16 +159,45 @@ if __name__ == '__main__':
     use_fast=False,
     )
 
-    data_args.image_processor = CLIPImageProcessor.from_pretrained(model_args.vision_tower)
-    
+    tokenizer.pad_token = tokenizer.unk_token
+    if model_args.version in conversation_lib.conv_templates:
+        conversation_lib.default_conversation = conversation_lib.conv_templates[model_args.version]
+    else:
+        conversation_lib.default_conversation = conversation_lib.conv_templates["vicuna_v1"]
+
+    model.get_model().initialize_vision_modules(
+        model_args=model_args,
+        fsdp=training_args.fsdp
+    )
+
+    visual_tower = model.get_visual_tower()
+    visual_tower.to(dtype=torch.bfloat16 if training_args.bf16 else torch.float16, device=training_args.device)
+
+    data_args.image_processor = visual_tower.image_processor
+    data_args.is_multimodal = True
+
+    model.config.image_aspect_ratio = data_args.image_aspect_ratio
+    model.config.tokenizer_padding_side = tokenizer.padding_side
+    model.config.tokenizer_model_max_length = tokenizer.model_max_length
+
+    model.config.tune_mm_mlp_adapter = training_args.tune_mm_mlp_adapter = model_args.tune_mm_mlp_adapter
+
+    if model_args.tune_mm_mlp_adapter:
+        model.requires_grad_(False)
+    for p in model.get_model().visual_projector.parameters():
+        p.requires_grad = True
+
+    model.config.mm_use_im_start_end = data_args.mm_use_im_start_end = model_args.mm_use_im_start_end
+    model.config.mm_projector_lr = training_args.mm_projector_lr
+    training_args.use_im_start_end = model_args.mm_use_im_start_end
+    model.config.mm_use_im_patch_token = model_args.mm_use_im_patch_token
+    model.initialize_vision_tokenizer(model_args, tokenizer=tokenizer)
+
     data_module = make_supervised_data_module(tokenizer=tokenizer,
                                             data_args=data_args)
 
-    config = transformers.AutoConfig.from_pretrained(model_args.model_name_or_path, trust_remote_code=True)
-    model = EventChatModel(config=config, model_args=model_args)
-
     # 定义 Trainer
-    trainer = Trainer(
+    trainer = EventChatTrainer(
         model=model,
         args=training_args,
         tokenizer=tokenizer,
@@ -126,4 +210,4 @@ if __name__ == '__main__':
     trainer.train()
 
     # 保存模型
-    trainer.save_model()
+    trainer.save_state()

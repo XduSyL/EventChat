@@ -2,12 +2,12 @@
 # export CUDA_VISIBLE_DEVICES=4,5,6,7
 deepspeed --include=localhost:4,5,6,7 /data/SyL/Event_RGB/deepspeed_train.py \
     --deepspeed /data/SyL/LLaVA/scripts/zero2.json \
-    --pretrain_mm_mlp_adapter /data/SyL/Event_RGB/checkpoints/llava-v1.5-7b-pretrain/checkpoint-4000/mm_mlp_adapter.pth \
-    --useLorafinetune True \
+    --pretrain_mm_mlp_adapter /data/SyL/Event_RGB/checkpoints/EventChat-v1.5-7b-pretrain/checkpoint-4000/mm_projector.bin \
     --model_name_or_path /data/SyL/model/vicuna-7b-v1.5 \
     --version plain \
     --data_path  /data/SyL/LLaVA/data_process/merged_instruction.json \
     --image_folder /data/SyL/LLaVA/custom_data/images \
+    --event_folder /data/SyL/LLaVA/custom_data/events \
     --vision_tower /data/SyL/model/clip-vit-large-patch14-336 \
     --mm_projector_type mlp2x_gelu \
     --tune_mm_mlp_adapter True \
@@ -15,8 +15,8 @@ deepspeed --include=localhost:4,5,6,7 /data/SyL/Event_RGB/deepspeed_train.py \
     --mm_use_im_start_end False \
     --mm_use_im_patch_token False \
     --bf16 True \
-    --output_dir /data/SyL/Event_RGB/checkpoints/llava-v1.5-7b-instruction \
-    --output_mm_mlp_adapter /data/SyL/Event_RGB/checkpoints/llava-v1.5-7b-instruction \
+    --output_dir /data/SyL/Event_RGB/checkpoints/EventChat-v1.5-7b-instruction \
+    --output_mm_mlp_adapter /data/SyL/Event_RGB/checkpoints/EventChat-v1.5-7b-instruction \
     --num_train_epochs 4 \
     --per_device_train_batch_size 8 \
     --per_device_eval_batch_size 4 \

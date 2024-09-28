@@ -60,9 +60,10 @@ def preprocess_multimodal(
                 sentence['value'] = DEFAULT_IMAGE_TOKEN + '\n' + sentence['value']
                 sentence['value'] = sentence['value'].strip()
                 if "mmtag" in conversation_lib.default_conversation.version:
+                    #将DEFAULT_IMAGE_TOKEN包裹在<Image>和</Image>之间
                     sentence['value'] = sentence['value'].replace(DEFAULT_IMAGE_TOKEN, '<Image>' + DEFAULT_IMAGE_TOKEN + '</Image>')
             replace_token = DEFAULT_IMAGE_TOKEN
-            if data_args.mm_use_im_start_end:
+            if data_args.mm_use_im_start_end: #默认为false
                 replace_token = DEFAULT_IM_START_TOKEN + replace_token + DEFAULT_IM_END_TOKEN
             sentence["value"] = sentence["value"].replace(DEFAULT_IMAGE_TOKEN, replace_token)
 
@@ -347,11 +348,13 @@ class EventChatDataset(Dataset):
                 image = processor.preprocess(image, return_tensors='pt')['pixel_values'][0]
 
             #处理多模态数据
+            #将Query中带有<image>的部分用标识符包裹起来
             sources = preprocess_multimodal(
                 copy.deepcopy([e["conversations"] for e in sources]),
                 self.data_args)
         else:
             sources = copy.deepcopy([e["conversations"] for e in sources])
+        #用tokenizer处理query和labels
         data_dict = preprocess(
             sources,
             self.tokenizer,
@@ -361,17 +364,19 @@ class EventChatDataset(Dataset):
                              labels=data_dict["labels"][0])
 
         # image exist in the data
-        if 'image' in self.list_data_dict[i]:
+        if 'image' in self.list_data_dict[i] and not getattr(self.data_args, 'event_folder', None):
             data_dict['image'] = image
-            if self.data_args.event_folder:
-                data_dict['events'] = event_img
-            else:
-                data_dict['events'] = None
             
-        elif self.data_args.is_multimodal:
-            # image does not exist in the data, but the model is multimodal
-            crop_size = self.data_args.image_processor.crop_size
-            data_dict['image'] = torch.zeros(3, crop_size['height'], crop_size['width'])
+        # elif self.data_args.is_multimodal:
+        #     # image does not exist in the data, but the model is multimodal
+        #     crop_size = self.data_args.image_processor.crop_size
+        #     data_dict['image'] = torch.zeros(3, crop_size['height'], crop_size['width'])
+
+        if self.data_args.event_folder:
+            data_dict['events'] = event_img
+        else:
+            data_dict['events'] = None
+
         return data_dict
     
 @dataclass
@@ -381,8 +386,11 @@ class DataCollatorForEventChatDataset(object):
     tokenizer: transformers.PreTrainedTokenizer
 
     def __call__(self, instances: Sequence[Dict]) -> Dict[str, torch.Tensor]:
+        #从字典中提取数据
         input_ids, labels = tuple([instance[key] for instance in instances]
                                   for key in ("input_ids", "labels"))
+        #对一个batch的样本进行padding，使其适合批处理
+        #填充原则为最长
         input_ids = torch.nn.utils.rnn.pad_sequence(
             input_ids,
             batch_first=True,
@@ -390,8 +398,10 @@ class DataCollatorForEventChatDataset(object):
         labels = torch.nn.utils.rnn.pad_sequence(labels,
                                                  batch_first=True,
                                                  padding_value=IGNORE_INDEX)
+        #此处限制模型的最大输出长度，截断多余的部分
         input_ids = input_ids[:, :self.tokenizer.model_max_length]
         labels = labels[:, :self.tokenizer.model_max_length]
+        #attention_mask=input_ids.ne(self.tokenizer.pad_token_id)生成掩码，不等于pad_token_id的都为true
         batch = dict(
             input_ids=input_ids,
             labels=labels,
@@ -408,6 +418,9 @@ class DataCollatorForEventChatDataset(object):
 
             else:
                 batch['images'] = images
+        else:
+            events = [instance['events'] for instance in instances]
+            batch['images'] = torch.stack(events)
 
         return batch
     
@@ -422,32 +435,5 @@ def make_supervised_data_module(tokenizer: transformers.PreTrainedTokenizer,
                 eval_dataset=None,
                 data_collator=data_collator)
 
-
-    
-# if __name__ == '__main__':
-
-#     data_path = "/data/SyL/LLaVA/data_process/merged_instruction.json"
-#     tokenizer = transformers.AutoTokenizer.from_pretrained(
-#         "/data/SyL/model/vicuna-7b-v1.5",
-#         model_max_length=110,
-#         padding_side="right",
-#         use_fast=False,
-#     )
-
-#     #huggingface的库函数，将命令行参数解析为类的实例
-#     parser = transformers.HfArgumentParser(
-#         (ModelArguments, DataArguments, TrainingArguments))
-#     model_args, data_args, training_args = parser.parse_args_into_dataclasses()
-
-#     data_args.image_processor = CLIPImageProcessor.from_pretrained("/data/SyL/model/clip-vit-large-patch14-336")
-
-#     train_dataset = EventChatDataset(data_path, tokenizer, data_args=data_args)
-
-#     data_module = make_supervised_data_module(tokenizer=tokenizer,
-#                                               data_args=data_args)
-    
-#     item = 12
-#     output = train_dataset[12]
-#     print(1)
 
     
