@@ -23,6 +23,7 @@ import pdb
 from PIL import Image
 import requests
 from io import BytesIO
+import numpy as np
 from transformers import TextStreamer
 from dataset.conversation import conv_templates, SeparatorStyle
 from dataset.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN, IMAGE_PLACEHOLDER,DEFAULT_IMAGE_PATCH_TOKEN
@@ -57,6 +58,23 @@ def tokenizer_image_token(prompt, tokenizer, image_token_index=IMAGE_TOKEN_INDEX
         raise ValueError(f'Unsupported tensor type: {return_tensors}')
     return input_ids
 
+def generate_event_image(image, x, y, p):
+    # 将 PIL 图像转换为 NumPy 数组
+    image_np = np.array(image)
+    # 获取图像的形状（高度和宽度）
+    height, width = image_np.shape[:2]
+    # 创建一个全白的事件图像，大小与 image 相同，三通道 RGB 图像
+    event_image = np.ones((height, width, 3), dtype=np.uint8) * 255
+
+    # 绘制事件
+    for x_, y_, p_ in zip(x, y, p):
+        if p_ == 0:
+            event_image[y_, x_] = np.array([0, 0, 255])  # 蓝色事件
+        else:
+            event_image[y_, x_] = np.array([255, 0, 0])  # 红色事件
+
+    return event_image
+
 
 if __name__ == '__main__':
     
@@ -67,11 +85,12 @@ if __name__ == '__main__':
     parser.add_argument("--query", type=str, required=True)
     parser.add_argument("--conv-mode", type=str, default='llava_v1')
     parser.add_argument("--sep", type=str, default=",")
-    parser.add_argument("--temperature", type=float, default=0.2)
-    parser.add_argument("--top_p", type=float, default=None)
-    parser.add_argument("--num_beams", type=int, default=1)
-    parser.add_argument("--max_new_tokens", type=int, default=512)
-    parser.add_argument("--pretrain_mm_mlp_adapter", type=str, default='/data/SyL/Event_RGB/checkpoints/EventChat-v1.5-7b-pretrain/checkpoint-4000/mm_projector.bin')
+    parser.add_argument("--temperature", type=float, default=1.0)
+    parser.add_argument("--top_p", type=float, default=0.6)
+    parser.add_argument("--num_beams", type=int, default=3)
+    parser.add_argument("--max_new_tokens", type=int, default=256)
+    parser.add_argument("--pretrain_mm_mlp_adapter", type=str, default='/data/SyL/Event_RGB/checkpoints/EventChat-v1.5-7b-instruction/checkpoint-400/mm_projector.bin')
+    parser.add_argument("--event_frame", type=str, default='/data/SyL/LLaVA/custom_data/events/thun_02_a/000104.npy')
 
     args = parser.parse_args()
 
@@ -105,7 +124,7 @@ if __name__ == '__main__':
     model.eval()
 
     qs = args.query
-    model.config.mm_use_im_start_end = True
+    #model.config.mm_use_im_start_end = False
     image_token_se = DEFAULT_IM_START_TOKEN + DEFAULT_IMAGE_TOKEN + DEFAULT_IM_END_TOKEN
     if IMAGE_PLACEHOLDER in qs:
         if model.config.mm_use_im_start_end:
@@ -127,16 +146,26 @@ if __name__ == '__main__':
     image = load_image(args.image_file)
     image_size = image.size
 
+    event_npy = np.load(args.event_frame, allow_pickle=True)
+    event_npy = np.array(event_npy).item()
+    event_img = generate_event_image(image, event_npy['x'], event_npy['y'], event_npy['p'])
+
+    event_image_pil = Image.fromarray(event_img)
+    event_image_pil.save('event_frame_104.png')
+
     #image_processor = model.CLIPProcessor
     image_tensor = image_processor(image, return_tensors='pt')['pixel_values']
     image_tensor = image_tensor.to(device , dtype=torch.float16)
+
+    event_tensor = image_processor(event_img, return_tensors='pt')['pixel_values']
+    event_tensor = image_tensor.to(device , dtype=torch.float16)
 
     input_ids = tokenizer_image_token(prompt, tokenizer, IMAGE_TOKEN_INDEX, return_tensors='pt').unsqueeze(0).to(model.device)
 
     with torch.inference_mode():
         output_ids = model.generate(
             input_ids,
-            images=image_tensor,
+            images=event_tensor,
             image_sizes=image_size,
             do_sample=True if args.temperature > 0 else False,
             temperature=args.temperature,
@@ -144,8 +173,7 @@ if __name__ == '__main__':
             num_beams=args.num_beams,
             max_new_tokens=args.max_new_tokens,
             use_cache=True,
-            eos_token_id=tokenizer.eos_token_id,
-            pad_token_id=tokenizer.pad_token_id
+            early_stopping=True
         )
 
     outputs = tokenizer.batch_decode(output_ids, skip_special_tokens=True)[0].strip()
